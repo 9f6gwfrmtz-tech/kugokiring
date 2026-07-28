@@ -10,5 +10,9 @@
   "theme_color": "#ffffff",
   "id": "igox",
   "description": "aplikacja testowa",
-  "lang": "pl"
+  "lang": "pl",
+  "categories": [
+    "developer tools"
+  ],
+  "iarc_rating_id": "9f6gwfrmtz-tech.github"
 }
