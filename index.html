@@ -1,0 +1,1057 @@
+<html>
+<head>
+<title>MyTitle</title>
+</head>
+
+<body>
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KuKirin G2 Smart Dashboard</title>
+
+<style>
+
+:root{
+    --main:#00ff88;
+    --bg:#050505;
+    --card:#111;
+    --text:#fff;
+}
+
+
+*{
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+
+body{
+
+    margin:0;
+    height:100vh;
+
+    background:var(--bg);
+    color:var(--text);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+
+
+.app{
+
+    width:390px;
+    height:850px;
+
+    background:var(--card);
+
+    border-radius:35px;
+
+    padding:20px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 0 50px #000;
+
+}
+
+
+
+
+.header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+
+.title{
+
+    font-size:24px;
+    font-weight:bold;
+
+}
+
+
+.bt{
+
+    color:#888;
+    font-size:14px;
+
+}
+
+
+
+
+.connect{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:18px;
+
+    background:var(--main);
+
+    font-weight:bold;
+
+    font-size:17px;
+
+}
+
+
+
+
+.speedArea{
+
+    margin-top:25px;
+
+    text-align:center;
+
+}
+
+
+
+
+.speedCircle{
+
+    width:240px;
+    height:240px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:
+    conic-gradient(
+    var(--main) 0deg,
+    #333 0deg
+    );
+
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+
+
+
+.speedInside{
+
+    width:195px;
+    height:195px;
+
+    border-radius:50%;
+
+    background:var(--card);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+
+#speed{
+
+    font-size:75px;
+
+    font-weight:bold;
+
+    color:var(--main);
+
+}
+
+
+
+.small{
+
+    color:#999;
+
+}
+
+
+
+
+.grid{
+
+    margin-top:25px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+}
+
+
+
+
+.box{
+
+    background:#1b1b1b;
+
+    padding:15px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+}
+
+
+
+.label{
+
+    color:#aaa;
+
+}
+
+
+
+.value{
+
+    margin-top:8px;
+
+    font-size:27px;
+
+    color:var(--main);
+
+    font-weight:bold;
+
+}
+
+
+
+
+
+.menu{
+
+    position:absolute;
+
+    bottom:20px;
+
+    width:350px;
+
+    display:flex;
+
+    justify-content:space-around;
+
+}
+
+
+
+.menu button{
+
+    width:70px;
+
+    height:50px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:#222;
+
+    color:white;
+
+    font-size:20px;
+
+}
+
+
+
+
+.settings{
+
+    display:none;
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:320px;
+
+    padding:25px;
+
+    background:#181818;
+
+    border-radius:25px;
+
+    box-shadow:0 0 50px black;
+
+}
+
+
+
+.settings button{
+
+    margin:5px;
+
+    padding:12px;
+
+    border:0;
+
+    border-radius:15px;
+
+}
+
+
+.lock{
+
+    color:#ff3355 !important;
+
+}
+
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<div class="header">
+
+<div class="title">
+🛴 KuKirin G2
+</div>
+
+<div class="bt" id="btStatus">
+OFFLINE
+</div>
+
+</div>
+
+
+
+<button class="connect" onclick="connectBluetooth()">
+🔵 Połącz Bluetooth
+</button>
+
+
+
+
+<div class="speedArea">
+
+
+<div class="speedCircle" id="batteryCircle">
+
+
+<div class="speedInside">
+
+<div id="speed">
+0
+</div>
+
+<div class="small">
+km/h
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="grid">
+
+
+<div class="box">
+
+<div class="label">
+🔋 Bateria
+</div>
+
+<div class="value" id="battery">
+0%
+</div>
+
+</div>
+
+
+
+<div class="box">
+
+<div class="label">
+⚡ Moc
+</div>
+
+<div class="value" id="power">
+0 W
+</div>
+
+</div>
+
+
+
+<div class="box">
+
+<div class="label">
+🌡️ Temperatura
+</div>
+
+<div class="value" id="temp">
+25°C
+</div>
+
+</div>
+
+
+
+<div class="box">
+
+<div class="label">
+📍 Zasięg
+</div>
+
+<div class="value" id="range">
+0 km
+</div>
+
+</div>
+
+
+
+<div class="box">
+
+<div class="label">
+🛣️ Trip
+</div>
+
+<div class="value" id="trip">
+0 km
+</div>
+
+</div>
+
+
+
+<div class="box">
+
+<div class="label">
+📏 ODO
+</div>
+
+<div class="value" id="odo">
+0 km
+</div>
+
+</div>
+
+
+
+<div class="box">
+
+<div class="label">
+⚡ Tryb
+</div>
+
+<div class="value" id="mode">
+D
+</div>
+
+</div>
+
+
+
+<div class="box">
+
+<div class="label">
+💡 Światła
+</div>
+
+<div class="value" id="lights">
+OFF
+</div>
+
+</div>
+
+
+
+<div class="box">
+
+<div class="label">
+🔒 Blokada
+</div>
+
+<div class="value" id="lock">
+OFF
+</div>
+
+
+<button onclick="toggleLock()">
+Zmień
+</button>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="menu">
+
+
+<button onclick="showHome()">
+🏠
+</button>
+
+
+<button onclick="showStats()">
+📊
+</button>
+
+
+<button onclick="openSettings()">
+⚙️
+</button>
+
+
+</div>
+
+
+
+
+
+
+<div class="settings" id="settings">
+
+
+<h2>
+⚙️ Ustawienia
+</h2>
+
+
+<p>
+Motyw
+</p>
+
+
+<button onclick="setTheme('dark')">
+🌙
+</button>
+
+
+<button onclick="setTheme('light')">
+☀️
+</button>
+
+
+
+<p>
+Kolor
+</p>
+
+
+<button onclick="setColor('#00ff88')">
+🟢
+</button>
+
+
+<button onclick="setColor('#00aaff')">
+🔵
+</button>
+
+
+<button onclick="setColor('#ff3355')">
+🔴
+</button>
+
+
+<button onclick="setColor('#aa55ff')">
+🟣
+</button>
+
+
+
+<br><br>
+
+
+<button onclick="closeSettings()">
+❌ Zamknij
+</button>
+
+
+</div>
+
+
+<script>
+
+
+let locked = false;
+let device = null;
+
+
+
+// =======================
+// BLUETOOTH
+// =======================
+
+async function connectBluetooth(){
+
+try{
+
+if(!navigator.bluetooth){
+
+alert("Brak obsługi Bluetooth");
+return;
+
+}
+
+
+// wyszukiwanie różnych wersji G2
+
+device = await navigator.bluetooth.requestDevice({
+
+filters:[
+
+{
+namePrefix:"KuKirin"
+},
+
+{
+namePrefix:"G2"
+},
+
+{
+namePrefix:"KUGOO"
+}
+
+],
+
+
+acceptAllDevices:true,
+
+
+optionalServices:[
+
+"battery_service"
+
+]
+
+});
+
+
+
+document.getElementById("btStatus").innerHTML =
+"Łączenie: " + device.name;
+
+
+
+const server =
+await device.gatt.connect();
+
+
+
+document.getElementById("btStatus").innerHTML =
+"Połączono: " + device.name;
+
+
+
+// pobranie wszystkich usług
+
+const services =
+await server.getPrimaryServices();
+
+
+
+console.log("Znalezione usługi:");
+
+
+
+for(let service of services){
+
+console.log(
+"Service UUID:",
+service.uuid
+);
+
+
+
+const chars =
+await service.getCharacteristics();
+
+
+
+for(let c of chars){
+
+console.log(
+"Characteristic:",
+c.uuid,
+"Read:",
+c.properties.read,
+"Notify:",
+c.properties.notify
+);
+
+}
+
+}
+
+
+
+}
+
+catch(error){
+
+console.log(error);
+
+document.getElementById("btStatus").innerHTML =
+"Błąd połączenia";
+
+}
+
+
+}
+
+
+// TESTOWE DANE
+// tutaj później podpina się prawdziwy protokół KuKirin
+
+
+updateBattery(82);
+
+updateSpeed(28);
+
+document.getElementById("power").innerHTML="450 W";
+
+document.getElementById("temp").innerHTML="32°C";
+
+document.getElementById("range").innerHTML="35 km";
+
+document.getElementById("trip").innerHTML="4.5 km";
+
+document.getElementById("odo").innerHTML="235 km";
+
+document.getElementById("mode").innerHTML="SPORT";
+
+document.getElementById("lights").innerHTML="ON";
+
+
+
+}
+
+catch(error){
+
+document.getElementById("btStatus").innerHTML=
+"ERROR";
+
+
+console.log(error);
+
+
+}
+
+
+}
+
+
+
+
+// =======================
+// BATERIA
+// =======================
+
+
+function updateBattery(percent){
+
+
+document.getElementById("battery").innerHTML=
+percent+"%";
+
+
+document.getElementById("batteryCircle").style.background=
+
+`conic-gradient(
+var(--main) ${percent*3.6}deg,
+#333 ${percent*3.6}deg
+)`;
+
+
+}
+
+
+
+
+// =======================
+// PRĘDKOŚĆ
+// =======================
+
+
+function updateSpeed(value){
+
+
+if(locked){
+
+document.getElementById("speed").innerHTML=
+"🔒";
+
+return;
+
+}
+
+
+document.getElementById("speed").innerHTML=value;
+
+
+}
+
+
+
+
+
+// =======================
+// BLOKADA
+// =======================
+
+
+function toggleLock(){
+
+
+locked=!locked;
+
+
+
+let lock=document.getElementById("lock");
+
+
+
+if(locked){
+
+
+lock.innerHTML="ON 🔒";
+
+lock.classList.add("lock");
+
+
+document.getElementById("speed").innerHTML="🔒";
+
+
+
+// miejsce na prawdziwą komendę Bluetooth
+// sendLockCommand(true)
+
+
+
+}
+
+
+else{
+
+
+lock.innerHTML="OFF 🔓";
+
+lock.classList.remove("lock");
+
+
+updateSpeed(0);
+
+
+// sendLockCommand(false)
+
+
+}
+
+
+
+}
+
+
+
+
+
+// =======================
+// USTAWIENIA UI
+// =======================
+
+
+function openSettings(){
+
+document.getElementById("settings")
+.style.display="block";
+
+}
+
+
+
+function closeSettings(){
+
+document.getElementById("settings")
+.style.display="none";
+
+}
+
+
+
+
+
+function setColor(color){
+
+
+document.documentElement
+.style.setProperty("--main",color);
+
+
+localStorage.setItem(
+"color",
+color
+);
+
+
+}
+
+
+
+
+function setTheme(theme){
+
+
+if(theme=="light"){
+
+
+document.documentElement
+.style.setProperty("--bg","#dddddd");
+
+
+document.documentElement
+.style.setProperty("--card","#ffffff");
+
+
+document.documentElement
+.style.setProperty("--text","#111");
+
+
+}
+
+else{
+
+
+document.documentElement
+.style.setProperty("--bg","#050505");
+
+
+document.documentElement
+.style.setProperty("--card","#111");
+
+
+document.documentElement
+.style.setProperty("--text","#fff");
+
+
+}
+
+
+
+localStorage.setItem(
+"theme",
+theme
+);
+
+
+}
+
+
+
+
+
+// =======================
+// MENU
+// =======================
+
+
+function showHome(){
+
+alert("Ekran główny");
+
+}
+
+
+
+function showStats(){
+
+alert(
+"Statystyki jazdy\n\nTrip i ODO są gotowe pod dane Bluetooth"
+);
+
+}
+
+
+
+
+// =======================
+// WCZYTYWANIE USTAWIEŃ
+// =======================
+
+
+window.onload=function(){
+
+
+let color=
+localStorage.getItem("color");
+
+
+if(color){
+
+setColor(color);
+
+}
+
+
+
+};
+
+
+
+
+</script>
+
+
+</div>
+
+</body>
+</html>
+
+
+
